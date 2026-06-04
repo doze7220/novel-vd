@@ -1785,29 +1785,16 @@ function update() {
     // --- Phase 6: 成長要素 (ジェム回収) ---
     for (let i = entities.gems.length - 1; i >= 0; i--) {
         let g = entities.gems[i];
+
+        // 吸引処理・移動処理を Gem.update(player) に委譲
+        // 元コード: 距離計算 + MAGNET_RANGE 判定 + locked 吸引 + vx/vy 慣性移動
+        g.update(player);
+
+        // 回収判定（CollisionManager フェーズで移動予定）
+        // dist 再計算: g.update() 内で座標が更新されるため、収集半径チェックに最新座標を使う
         const gdx = player.x - g.x;
         const gdy = player.y - g.y;
         const dist = Math.hypot(gdx, gdy);
-
-        // 一度吸引範囲に入ったらロックオン状態になり、加速度がついて必ず回収できる
-        if (dist < CONFIG.EXP_MAGNET_RADIUS) {
-            g.locked = true;
-        }
-
-        if (g.locked) {
-            g.speed += CONFIG.GEM_MAGNET_ACCEL; // 加速度を加算
-            const safeDist = Math.max(dist, 0.0001);
-            g.x += (gdx / safeDist) * g.speed;
-            g.y += (gdy / safeDist) * g.speed;
-        } else {
-            // 敵撃破時の飛び出し＆減速挙動 (デブリと同様に)
-            if (g.vx !== undefined && g.vy !== undefined) {
-                g.x += g.vx;
-                g.y += g.vy;
-                g.vx *= 0.92; // 毎フレーム 8% 減速
-                g.vy *= 0.92;
-            }
-        }
 
         if (dist < CONFIG.GEM_COLLECT_RADIUS) {
             if (g.kind === 'HEAL') {

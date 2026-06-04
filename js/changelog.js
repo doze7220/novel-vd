@@ -1,5 +1,18 @@
 const changelog = [
   {
+    version: "v0.5.38",
+    date: "2026-06-04",
+    description: "Refactoring: Phase 4 Step 7 - Gem クラス化。吸引・移動処理を Gem.update(player) に委譲。",
+    details: [
+      "【リファクタリング】js/classes/Gem.js を新規作成。constructor(x,y,vx,vy,kind,exp,heal,locked,speed,sprite,sizeMult) + update(player) を実装",
+      "【リファクタリング】update(player) は距離計算・EXP_MAGNET_RADIUS 判定・locked フラグ設定・吸引加速（GEM_MAGNET_ACCEL）・プレイヤー方向移動・慣性移動（vx/vy 0.92減速）のみ（回収判定・EXP加算・splice は行わない）",
+      "【リファクタリング】js/systems/eliminator.js の spawnItem() 内の entities.gems.push({...}) → new Gem(...) に変換",
+      "【リファクタリング】main.js Gemループの吸引・移動処理（約20行）→ g.update(player) の1行に置換",
+      "【変更なし】回収判定（dist < GEM_COLLECT_RADIUS）・EXP加算・HP回復・checkLevelUp()・entities.gems.splice は main.js Gemループ内に残存（CollisionManager フェーズで移動予定）",
+      "【変更なし】drawEffects.js / EffectManager 変更なし。MAGNET_RANGE・吸引係数・距離計算式・vx/vy 計算式・update順序・draw順序は完全維持"
+    ]
+  },
+  {
     version: "v0.5.37",
     date: "2026-05-31",
     description: "Refactoring: Phase 4 Step 6 - Explosion クラス化。タイマー・scale/shake計算・currentRadius算出を Explosion.update() に委譲。",

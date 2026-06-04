@@ -2,19 +2,19 @@ const eliminator = {
     spawnItem: function (x, y, baseVx, baseVy, kind, sprite, exp, heal, sizeMult = 1) {
         const angle = Math.random() * Math.PI * 2;
         const speed = 3 + Math.random() * 4;
-        entities.gems.push({
-            x: x,
-            y: y,
-            vx: (baseVx || 0) * 0.35 + Math.cos(angle) * speed,
-            vy: (baseVy || 0) * 0.35 + Math.sin(angle) * speed,
-            kind: kind,
-            exp: exp,
-            heal: heal,
-            locked: false,
-            speed: CONFIG.GEM_MAGNET_BASE_SPEED,
-            sprite: sprite,
-            sizeMult: sizeMult
-        });
+        entities.gems.push(new Gem(
+            x,
+            y,
+            (baseVx || 0) * 0.35 + Math.cos(angle) * speed,
+            (baseVy || 0) * 0.35 + Math.sin(angle) * speed,
+            kind,
+            exp,
+            heal,
+            false,                         // locked: 初期状態は未ロック
+            CONFIG.GEM_MAGNET_BASE_SPEED,  // speed: 吸引速度初期値
+            sprite,
+            sizeMult
+        ));
     },
 
     processEntityDeath: function (e, type, index) {
