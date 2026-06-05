@@ -1,5 +1,16 @@
 const changelog = [
   {
+    version: "v0.5.39",
+    date: "2026-06-05",
+    description: "Refactoring: Phase 4 Step 8 - CollisionManager 分離。handleGemPickup() を新設。",
+    details: [
+      "【リファクタリング】js/systems/CollisionManager.js を新規作成。handleGemPickup(entities, player, playerStats, checkLevelUp) を実装",
+      "【リファクタリング】main.js L1785–L1808 の Gem 回収ループ → CollisionManager.handleGemPickup() の1行呼び出しに置換",
+      "【変更なし】update 順序・cleanup 順序・Gem 吸引挙動・EXP/HP 加算ロジック・checkLevelUp() 呼び出しタイミングは変更なし",
+      "【変更なし】drawEffects.js / EffectManager / eliminator.js / Gem.update() は変更なし"
+    ]
+  },
+  {
     version: "v0.5.38",
     date: "2026-06-04",
     description: "Refactoring: Phase 4 Step 7 - Gem クラス化。吸引・移動処理を Gem.update(player) に委譲。",

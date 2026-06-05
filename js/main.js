@@ -1783,29 +1783,7 @@ function update() {
     }
 
     // --- Phase 6: 成長要素 (ジェム回収) ---
-    for (let i = entities.gems.length - 1; i >= 0; i--) {
-        let g = entities.gems[i];
-
-        // 吸引処理・移動処理を Gem.update(player) に委譲
-        // 元コード: 距離計算 + MAGNET_RANGE 判定 + locked 吸引 + vx/vy 慣性移動
-        g.update(player);
-
-        // 回収判定（CollisionManager フェーズで移動予定）
-        // dist 再計算: g.update() 内で座標が更新されるため、収集半径チェックに最新座標を使う
-        const gdx = player.x - g.x;
-        const gdy = player.y - g.y;
-        const dist = Math.hypot(gdx, gdy);
-
-        if (dist < CONFIG.GEM_COLLECT_RADIUS) {
-            if (g.kind === 'HEAL') {
-                playerStats.hp = Math.min(playerStats.maxHp, playerStats.hp + (g.heal || CONFIG.HEAL_ITEM_AMOUNT));
-            } else {
-                playerStats.exp += g.exp;
-                checkLevelUp();
-            }
-            entities.gems.splice(i, 1);
-        }
-    }
+    CollisionManager.handleGemPickup(entities, player, playerStats, checkLevelUp);
 
     // --- ミッション達成リマインダー ---
     if (GAME.killCount >= CONFIG.MISSION_QUOTA && !GAME.isMissionClear && !GAME.isPlayerDying) {

@@ -4,7 +4,7 @@
  * constructor: 初期プロパティを設定。
  * update(player): 吸引処理・移動処理のみを担当。
  *
- * 【update() で行わないこと（main.js に残存）】
+ * 【update() で行わないこと（CollisionManager に移植済み）】
  *   - dist < GEM_COLLECT_RADIUS による回収判定
  *   - EXP 加算 / HP 回復
  *   - checkLevelUp() 呼び出し
@@ -13,8 +13,8 @@
  *   - entities.gems.splice (cleanup)
  *
  * ※ draw() は実装しない（drawEffects.js / EffectManager を変更しない）。
- * ※ CollisionManager フェーズ（Step 8）での移動を前提に、
- *    回収判定・cleanup は main.js に残す。
+ * ※ Phase 4 Step 8 完了: 回収判定・cleanup は
+ *    CollisionManager.handleGemPickup() に移植済み。
  */
 class Gem {
     /**
