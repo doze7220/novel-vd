@@ -251,6 +251,32 @@ class Ship {
         this.hp -= amount;
         this.flashTimer = CONFIG.FLASH_DURATION;
     }
+
+    /**
+     * Controller Abstraction: ControllerInput を受け取り、推力・旋回・ブレーキを vx/vy に反映する。
+     *
+     * 【Phase 5 Step 1: 空実装】
+     *   現時点では何も処理しない。PlayerShip / EnemyShip の update() から呼ばれていないため、
+     *   ゲーム挙動への影響はゼロ。
+     *
+     * 【Step 2 以降で実装予定の処理】
+     *   - PlayerShip 用:
+     *       turnLeft/turnRight → bodyAngle への handling 加算
+     *       thrust             → bodyAngle 方向への推力加算
+     *       brake              → 後退ブレーキ（vx *= 0.95 + 逆方向推力）
+     *       tacticalBrake      → 急ブレーキ（vx *= 0.7）
+     *       boost              → boostSpeedMult / boostAccelMult 適用
+     *   - EnemyShip 用（方式A: driveAngle/drivePower）:
+     *       driveAngle/drivePower → 方向指定推力加算（vx += cos(driveAngle) * drivePower）
+     *
+     * @param {object} input  - createControllerInput() が返すオブジェクト
+     * @param {object} stats  - playerStats（PlayerShip 用）または null（EnemyShip 用）
+     */
+    applyControl(input, stats) {
+        // 【Step 1: 空実装】
+        // Step 2 で PlayerShip 用の推力・旋回処理を実装する。
+        // Step 3 で EnemyShip 用の driveAngle/drivePower 処理を実装する。
+    }
 }
 
 /**

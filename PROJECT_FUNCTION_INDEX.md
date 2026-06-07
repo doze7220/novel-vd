@@ -2,7 +2,7 @@
 
 VANGUARDRIFTER — 全関数インデックス
 
-最終更新: 2026-06-05 (v0.5.39 時点)
+最終更新: 2026-06-07 (v0.5.40 時点)
 
 ---
 
@@ -48,7 +48,23 @@ VANGUARDRIFTER — 全関数インデックス
 
 ---
 
-## 3. js/classes/Bullet.js
+## 3. js/controllers/ControllerInput.js
+
+| 関数名 | 行番号 | 引数 | 戻り値 | 呼び出し元 | 概要 |
+|-------|--------|------|--------|----------|—---|
+| createControllerInput | L23 | なし | object | Phase 5 Step 2 以降で HumanController.getInput() ・ AIController.getInput() から呼び出す予定（Step 1 は足場のみ） | ControllerInput のデフォルト値を持つオブジェクトを生成して返す。フィールド: turnLeft/turnRight/thrust/brake/tacticalBrake/boost/firePrimary/fireSecondary/aimAngle/driveAngle/drivePower |
+
+---
+
+## 4. js/controllers/HumanController.js
+
+| 関数名 | 行番号 | 引数 | 戻り値 | 呼び出し元 | 概要 |
+|-------|--------|------|--------|----------|------|
+| HumanController.getInput | L39 | ship, GAME, playerStats | ControllerInput | Phase 5 Step 2 以降で PlayerShip.update() から呼び出す予定（Step 1 は足場のみ） | InputManager.isPressed() / getMouse() を読み取り、createControllerInput() のオブジェクトに詳めて返す。GAME.controlMode の分岐もここで実施 |
+
+---
+
+## 6. js/classes/Bullet.js
 
 | 関数名 | 行番号 | 引数 | 戻り値 | 呼び出し元 | 概要 |
 |-------|--------|------|--------|----------|------|
@@ -57,7 +73,7 @@ VANGUARDRIFTER — 全関数インデックス
 
 ---
 
-## 4. js/classes/EnemyBullet.js
+## 7. js/classes/EnemyBullet.js
 
 | 関数名 | 行番号 | 引数 | 戻り値 | 呼び出し元 | 概要 |
 |-------|--------|------|--------|----------|------|
@@ -66,7 +82,7 @@ VANGUARDRIFTER — 全関数インデックス
 
 ---
 
-## 5. js/classes/Missile.js
+## 8. js/classes/Missile.js
 
 | 関数名 | 行番号 | 引数 | 戻り値 | 呼び出し元 | 概要 |
 |-------|--------|------|--------|----------|------|
@@ -75,7 +91,7 @@ VANGUARDRIFTER — 全関数インデックス
 
 ---
 
-## 6. js/classes/Particle.js
+## 9. js/classes/Particle.js
 
 | 関数名 | 行番号 | 引数 | 戻り値 | 呼び出し元 | 概要 |
 |-------|--------|------|--------|----------|------|
@@ -84,7 +100,7 @@ VANGUARDRIFTER — 全関数インデックス
 
 ---
 
-## 7. js/classes/Debris.js
+## 10. js/classes/Debris.js
 
 | 関数名 | 行番号 | 引数 | 戻り値 | 呼び出し元 | 概要 |
 |-------|--------|------|--------|----------|------|
@@ -93,7 +109,7 @@ VANGUARDRIFTER — 全関数インデックス
 
 ---
 
-## 8. js/classes/Explosion.js
+## 11. js/classes/Explosion.js
 
 | 関数名 | 行番号 | 引数 | 戻り値 | 呼び出し元 | 概要 |
 |-------|--------|------|--------|----------|------|
@@ -102,7 +118,7 @@ VANGUARDRIFTER — 全関数インデックス
 
 ---
 
-## 9. js/classes/Gem.js
+## 12. js/classes/Gem.js
 
 | 関数名 | 行番号 | 引数 | 戻り値 | 呼び出し元 | 概要 |
 |-------|--------|------|--------|----------|------|
@@ -111,7 +127,7 @@ VANGUARDRIFTER — 全関数インデックス
 
 ---
 
-## 10. js/classes/communication.js
+## 13. js/classes/communication.js
 
 | 関数名 | 行番号 | 引数 | 戻り値 | 呼び出し元 | 概要 |
 |-------|--------|------|--------|----------|------|

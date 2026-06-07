@@ -2,7 +2,7 @@
 
 VANGUARDRIFTER — コードアーキテクチャ概覧
 
-最終更新: 2026-06-05 (v0.5.39 時点)
+最終更新: 2026-06-07 (v0.5.40 時点)
 
 ---
 
@@ -47,6 +47,9 @@ vanguardrifter/
 │   │   ├── Explosion.js           # Explosion クラス（爆発）
 │   │   ├── Gem.js                 # Gem クラス（経験値・回復アイテム）
 │   │   └── communication.js       # Communication クラス（シエロ通信UI）
+│   ├── controllers/
+│   │   ├── ControllerInput.js     # createControllerInput() ファクトリ関数（Controller Abstraction 用入力データ構造）★ Phase 5 Step 1 新規追加
+│   │   └── HumanController.js     # HumanController.getInput()（InputManager → ControllerInput 変換）★ Phase 5 Step 1 新規追加
 │   ├── systems/
 │   │   ├── input.js               # InputManager（キーボード・マウス入力管理）
 │   │   ├── handleInput.js         # ゲーム状態別入力ハンドラ群
@@ -77,8 +80,10 @@ vanguardrifter/
 
 | ファイル | 行数 |
 |---------|------|
-| js/changelog.js | 837 |
-| js/main.js | 2399 |
+| js/changelog.js | 851 |
+| js/main.js | 2425 |
+| js/controllers/ControllerInput.js | 43 |
+| js/controllers/HumanController.js | 50 |
 | js/data/config.js | 152 |
 | js/data/constants.js | 6 |
 | js/data/stats.js | 31 |

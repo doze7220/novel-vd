@@ -1,5 +1,19 @@
 const changelog = [
   {
+    version: "v0.5.40",
+    date: "2026-06-07",
+    description: "Refactoring: Phase 5 Step 1 - Controller Abstraction 足場構築。ControllerInput / HumanController / Ship.applyControl() を追加（空実装）。",
+    details: [
+      "【新規】js/controllers/ControllerInput.js を新規作成。createControllerInput() 関数を定義（turnLeft/turnRight/thrust/brake/tacticalBrake/boost/firePrimary/fireSecondary/aimAngle/driveAngle/drivePower）",
+      "【新規】js/controllers/HumanController.js を新規作成。HumanController.getInput(ship, GAME, playerStats) を定義（Step 2 以降で PlayerShip.update() から呼ばれる予定）",
+      "【修正】main.js Ship クラスに applyControl(input, stats) を追加（空実装。Step 1 では PlayerShip / EnemyShip の update() から呼ばれない）",
+      "【修正】index.html に js/controllers/ControllerInput.js・HumanController.js の読み込みを追加",
+      "【変更なし】PlayerShip.update() / EnemyShip.update() の挙動は一切変更なし",
+      "【変更なし】update 順序・collision 順序・cleanup 順序・draw 順序は変更なし",
+      "【変更なし】ゲームの移動・AI挙動・射撃・着艦・発艦に変化なし（ゲーム挙動ゼロ変更）"
+    ]
+  },
+  {
     version: "v0.5.39",
     date: "2026-06-05",
     description: "Refactoring: Phase 4 Step 8 - CollisionManager 分離。handleGemPickup() を新設。",
