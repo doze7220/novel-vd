@@ -2,7 +2,7 @@
 
 VANGUARDRIFTER — コードアーキテクチャ概覧
 
-最終更新: 2026-06-07 (v0.5.40 時点)
+最終更新: 2026-06-07 (v0.5.41 時点)
 
 ---
 
@@ -80,8 +80,8 @@ vanguardrifter/
 
 | ファイル | 行数 |
 |---------|------|
-| js/changelog.js | 851 |
-| js/main.js | 2425 |
+| js/changelog.js | 871 |
+| js/main.js | 2448 |
 | js/controllers/ControllerInput.js | 43 |
 | js/controllers/HumanController.js | 50 |
 | js/data/config.js | 152 |

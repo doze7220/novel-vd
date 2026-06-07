@@ -1,5 +1,25 @@
 const changelog = [
   {
+    version: "v0.5.41",
+    date: "2026-06-07",
+    description: "Refactoring: Phase 5 Step 2A - 入力取得経路を InputManager 直接参照から ControllerInput 経由へ移行。",
+    details: [
+      "【修正】main.js PlayerShip.update() 冒頭に HumanController.getInput(this, GAME, playerStats) を導入",
+      "【置換】ShiftLeft/ShiftRight 直接参照 → input.boost。isOverheated ガードを update() 冒頭で補正（if (this.isOverheated) input.boost = false）",
+      "【置換】KeyA/ArrowLeft → input.turnLeft、KeyD/ArrowRight → input.turnRight",
+      "【置換】MOUSE_AIM 時の InputManager.getMouse() + mouseAngle 計算 → input.aimAngle（HumanController 内で計算済み）",
+      "【置換】KeyW/ArrowUp → input.thrust。boostActiveTimer による強制 true 補正を Ship 側で維持",
+      "【置換】KeyS/ArrowDown → input.brake",
+      "【置換】KeyQ（maneuver >= 6）→ input.tacticalBrake（判定は HumanController.getInput() 内で実施）",
+      "【置換】Space/rightDown → input.firePrimary",
+      "【置換】KeyE → input.fireSecondary",
+      "【変更なし】vx/vy 操作・bodyAngle 操作・updatePhysics()・射撃処理・ミサイル処理は1行も移動しない",
+      "【変更なし】EnemyShip.update() は一切変更なし",
+      "【変更なし】applyControl() は引き続き空実装のまま（呼び出し元なし）",
+      "【変更なし】ゲーム挙動ゼロ変更（移動・ドリフト・ブースト・オーバーヒート・射撃・着艦・発艦 完全互換）"
+    ]
+  },
+  {
     version: "v0.5.40",
     date: "2026-06-07",
     description: "Refactoring: Phase 5 Step 1 - Controller Abstraction 足場構築。ControllerInput / HumanController / Ship.applyControl() を追加（空実装）。",

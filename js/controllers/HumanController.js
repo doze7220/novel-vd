@@ -12,12 +12,10 @@
  *   - GAME.controlMode（SUBSPACE / MOUSE_AIM）の分岐もここで処理する
  *   - playerStats.handling / moveSpeed 等は参照のみ（変更しない）
  *
- * 使用方法（Step 2 以降で PlayerShip.update() が呼ぶ）：
+ * 使用方法（Step 2A 完了。PlayerShip.update() から呼び出し中）：
  *   const input = HumanController.getInput(ship, GAME, playerStats);
- *   ship.applyControl(input, playerStats);
- *
- * ※ Step 1（足場構築）時点では、この getInput() は誰も呼んでいない。
- *    PlayerShip.update() の入力処理は現行コードのまま維持される。
+ *   // 其後 PlayerShip.update() 内で input.boost / input.thrust を補正し、物理処理に利用する。
+ *   // Step 2B で ship.applyControl(input, playerStats) を導入予定。
  */
 const HumanController = {
     /**

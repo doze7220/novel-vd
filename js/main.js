@@ -319,8 +319,24 @@ class PlayerShip extends Ship {
      * プレイヤー更新: 操作入力 → 物理演算 → 射撃 → ミサイル
      * HUD DOM操作・星スクロール・トレイル更新・衝突判定は main.js に残す。
      * 物理演算は super.updatePhysics(currentMaxSpeed) に委譲する。
+     *
+     * Phase 5 Step 2A:
+     *   入力取得を HumanController.getInput() 経由へ移行済み。
+     *   物理処理（vx/vy / bodyAngle / updatePhysics）は現在位置に維持。
      */
     update(GAME, entities) {
+        // --- Phase 5 Step 2A: HumanController 経由で ControllerInput を取得 ---
+        // 生入力（キー押下・マウス位置）のみを格納する。
+        // Ship の状態に依存するガード（isOverheated / boostActiveTimer）は
+        // この直後に PlayerShip 側で補正する。
+        const input = HumanController.getInput(this, GAME, playerStats);
+
+        // boost: HumanController は生 Shift 入力のみ返す。
+        // isOverheated 中はブースト不可のため、ここでガードを掛ける（指示書 §boost の扱い）。
+        if (this.isOverheated) {
+            input.boost = false;
+        }
+
         // 加速度（ACC）計算のため、現在の速度を前のフレームの速度として保存
         this.prevVx = this.vx;
         this.prevVy = this.vy;
@@ -373,7 +389,8 @@ class PlayerShip extends Ship {
                 this.boostGauge = maxBoostGauge;
             }
 
-            const isHoldingShift = (InputManager.isPressed('ShiftLeft') || InputManager.isPressed('ShiftRight')) && !this.isOverheated;
+            // input.boost は isOverheated ガード済み（update 冒頭で補正済み）
+            const isHoldingShift = input.boost;
             const canBoost = this.boostGauge > 0 && this.boostCooldownTimer <= 0;
             const isBoosting = isHoldingShift && canBoost;
 
@@ -410,8 +427,9 @@ class PlayerShip extends Ship {
         }
 
         if (canControl) {
-            const turnLeft = InputManager.isPressed('KeyA') || InputManager.isPressed('ArrowLeft');
-            const turnRight = InputManager.isPressed('KeyD') || InputManager.isPressed('ArrowRight');
+            // 旋回: ControllerInput 経由
+            const turnLeft = input.turnLeft;
+            const turnRight = input.turnRight;
             const hasManualTurn = turnLeft || turnRight;
 
             if (turnLeft) {
@@ -424,15 +442,16 @@ class PlayerShip extends Ship {
             if (GAME.controlMode === 'SUBSPACE') {
                 this.turretAngle = this.bodyAngle;
             } else {
-                const mouse = InputManager.getMouse();
-                const mouseAngle = Math.atan2(mouse.y - GAME.height / 2, mouse.x - GAME.width / 2);
-                this.turretAngle = mouseAngle;
+                // MOUSE_AIM: input.aimAngle は HumanController がマウス位置から計算済み
+                this.turretAngle = input.aimAngle;
             }
 
             let thrust = 0;
-            let moveForward = InputManager.isPressed('KeyW') || InputManager.isPressed('ArrowUp');
+            // thrust: ControllerInput 経由（生入力）
+            let moveForward = input.thrust;
 
             // ブースト押下時に前進が押されてない場合は、押されているものとみなして前進ベクトルを追加
+            // （指示書 §thrust の扱い: HumanController は生入力のみ返すため、Ship 側で補正する）
             if (this.boostActiveTimer > 0 && !moveForward) {
                 moveForward = true;
             }
@@ -462,7 +481,8 @@ class PlayerShip extends Ship {
             }
 
             // 後退（Sキー）時はブレーキおよび微速後退として処理
-            if (InputManager.isPressed('KeyS') || InputManager.isPressed('ArrowDown')) {
+            // brake: ControllerInput 経由
+            if (input.brake) {
                 this.vx *= 0.95; // 強いブレーキ効果
                 this.vy *= 0.95;
                 const reverseAccel = playerStats.moveSpeed * 0.3;
@@ -471,7 +491,8 @@ class PlayerShip extends Ship {
             }
 
             // タクティカル・ブレーキ (Limit Burst: maneuver >= 6)
-            if (InputManager.isPressed('KeyQ') && (playerStats.upgrades.maneuver || 0) >= 6) {
+            // tacticalBrake: ControllerInput 経由（maneuver >= 6 の判定は HumanController.getInput() で実施済み）
+            if (input.tacticalBrake) {
                 this.vx *= 0.7; // 急激な減衰
                 this.vy *= 0.7;
                 // ブレーキ時に火花を散らす
@@ -629,8 +650,8 @@ class PlayerShip extends Ship {
 
         // --- ヒートゲージ＆自動エイム射撃ロジック ---
         // ヒート管理のため、射撃は「右クリック or スペースキー」を押している間のみ作動（死亡・着艦演出時は撃てない）
-        const mouse = InputManager.getMouse();
-        const isFiringInput = !GAME.isPlayerDying && !this.isLandingSequence && (InputManager.isPressed('Space') || mouse.rightDown);
+        // firePrimary: ControllerInput 経由
+        const isFiringInput = !GAME.isPlayerDying && !this.isLandingSequence && input.firePrimary;
 
         if (this.isOverheated) {
             this.overheatTimer--;
@@ -678,7 +699,8 @@ class PlayerShip extends Ship {
         }
 
         // --- ミサイル発射 (E) ---
-        if (!GAME.isPlayerDying && !this.isLandingSequence && (!GAME.commState || GAME.commState === 'INACTIVE') && InputManager.isPressed('KeyE') && this.missileCooldown <= 0 && !this.isOverheated) {
+        // fireSecondary: ControllerInput 経由
+        if (!GAME.isPlayerDying && !this.isLandingSequence && (!GAME.commState || GAME.commState === 'INACTIVE') && input.fireSecondary && this.missileCooldown <= 0 && !this.isOverheated) {
             this.missileCooldown = CONFIG.MISSILE_COOLDOWN;
 
             // ロックオン処理 (前方90度)
