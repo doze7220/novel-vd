@@ -1,5 +1,43 @@
 const changelog = [
   {
+    version: "v0.5.40",
+    date: "2026-06-07",
+    description: "Refactoring: Phase 5 Step 1 - Controller Abstraction 足場構築。ControllerInput / HumanController / Ship.applyControl() を追加（空実装）。",
+    details: [
+      "【新規】js/controllers/ControllerInput.js を新規作成。createControllerInput() 関数を定義（turnLeft/turnRight/thrust/brake/tacticalBrake/boost/firePrimary/fireSecondary/aimAngle/driveAngle/drivePower）",
+      "【新規】js/controllers/HumanController.js を新規作成。HumanController.getInput(ship, GAME, playerStats) を定義（Step 2 以降で PlayerShip.update() から呼ばれる予定）",
+      "【修正】main.js Ship クラスに applyControl(input, stats) を追加（空実装。Step 1 では PlayerShip / EnemyShip の update() から呼ばれない）",
+      "【修正】index.html に js/controllers/ControllerInput.js・HumanController.js の読み込みを追加",
+      "【変更なし】PlayerShip.update() / EnemyShip.update() の挙動は一切変更なし",
+      "【変更なし】update 順序・collision 順序・cleanup 順序・draw 順序は変更なし",
+      "【変更なし】ゲームの移動・AI挙動・射撃・着艦・発艦に変化なし（ゲーム挙動ゼロ変更）"
+    ]
+  },
+  {
+    version: "v0.5.39",
+    date: "2026-06-05",
+    description: "Refactoring: Phase 4 Step 8 - CollisionManager 分離。handleGemPickup() を新設。",
+    details: [
+      "【リファクタリング】js/systems/CollisionManager.js を新規作成。handleGemPickup(entities, player, playerStats, checkLevelUp) を実装",
+      "【リファクタリング】main.js L1785–L1808 の Gem 回収ループ → CollisionManager.handleGemPickup() の1行呼び出しに置換",
+      "【変更なし】update 順序・cleanup 順序・Gem 吸引挙動・EXP/HP 加算ロジック・checkLevelUp() 呼び出しタイミングは変更なし",
+      "【変更なし】drawEffects.js / EffectManager / eliminator.js / Gem.update() は変更なし"
+    ]
+  },
+  {
+    version: "v0.5.38",
+    date: "2026-06-04",
+    description: "Refactoring: Phase 4 Step 7 - Gem クラス化。吸引・移動処理を Gem.update(player) に委譲。",
+    details: [
+      "【リファクタリング】js/classes/Gem.js を新規作成。constructor(x,y,vx,vy,kind,exp,heal,locked,speed,sprite,sizeMult) + update(player) を実装",
+      "【リファクタリング】update(player) は距離計算・EXP_MAGNET_RADIUS 判定・locked フラグ設定・吸引加速（GEM_MAGNET_ACCEL）・プレイヤー方向移動・慣性移動（vx/vy 0.92減速）のみ（回収判定・EXP加算・splice は行わない）",
+      "【リファクタリング】js/systems/eliminator.js の spawnItem() 内の entities.gems.push({...}) → new Gem(...) に変換",
+      "【リファクタリング】main.js Gemループの吸引・移動処理（約20行）→ g.update(player) の1行に置換",
+      "【変更なし】回収判定（dist < GEM_COLLECT_RADIUS）・EXP加算・HP回復・checkLevelUp()・entities.gems.splice は main.js Gemループ内に残存（CollisionManager フェーズで移動予定）",
+      "【変更なし】drawEffects.js / EffectManager 変更なし。MAGNET_RANGE・吸引係数・距離計算式・vx/vy 計算式・update順序・draw順序は完全維持"
+    ]
+  },
+  {
     version: "v0.5.37",
     date: "2026-05-31",
     description: "Refactoring: Phase 4 Step 6 - Explosion クラス化。タイマー・scale/shake計算・currentRadius算出を Explosion.update() に委譲。",

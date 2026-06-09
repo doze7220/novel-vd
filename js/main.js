@@ -251,6 +251,32 @@ class Ship {
         this.hp -= amount;
         this.flashTimer = CONFIG.FLASH_DURATION;
     }
+
+    /**
+     * Controller Abstraction: ControllerInput を受け取り、推力・旋回・ブレーキを vx/vy に反映する。
+     *
+     * 【Phase 5 Step 1: 空実装】
+     *   現時点では何も処理しない。PlayerShip / EnemyShip の update() から呼ばれていないため、
+     *   ゲーム挙動への影響はゼロ。
+     *
+     * 【Step 2 以降で実装予定の処理】
+     *   - PlayerShip 用:
+     *       turnLeft/turnRight → bodyAngle への handling 加算
+     *       thrust             → bodyAngle 方向への推力加算
+     *       brake              → 後退ブレーキ（vx *= 0.95 + 逆方向推力）
+     *       tacticalBrake      → 急ブレーキ（vx *= 0.7）
+     *       boost              → boostSpeedMult / boostAccelMult 適用
+     *   - EnemyShip 用（方式A: driveAngle/drivePower）:
+     *       driveAngle/drivePower → 方向指定推力加算（vx += cos(driveAngle) * drivePower）
+     *
+     * @param {object} input  - createControllerInput() が返すオブジェクト
+     * @param {object} stats  - playerStats（PlayerShip 用）または null（EnemyShip 用）
+     */
+    applyControl(input, stats) {
+        // 【Step 1: 空実装】
+        // Step 2 で PlayerShip 用の推力・旋回処理を実装する。
+        // Step 3 で EnemyShip 用の driveAngle/drivePower 処理を実装する。
+    }
 }
 
 /**
@@ -1783,42 +1809,7 @@ function update() {
     }
 
     // --- Phase 6: 成長要素 (ジェム回収) ---
-    for (let i = entities.gems.length - 1; i >= 0; i--) {
-        let g = entities.gems[i];
-        const gdx = player.x - g.x;
-        const gdy = player.y - g.y;
-        const dist = Math.hypot(gdx, gdy);
-
-        // 一度吸引範囲に入ったらロックオン状態になり、加速度がついて必ず回収できる
-        if (dist < CONFIG.EXP_MAGNET_RADIUS) {
-            g.locked = true;
-        }
-
-        if (g.locked) {
-            g.speed += CONFIG.GEM_MAGNET_ACCEL; // 加速度を加算
-            const safeDist = Math.max(dist, 0.0001);
-            g.x += (gdx / safeDist) * g.speed;
-            g.y += (gdy / safeDist) * g.speed;
-        } else {
-            // 敵撃破時の飛び出し＆減速挙動 (デブリと同様に)
-            if (g.vx !== undefined && g.vy !== undefined) {
-                g.x += g.vx;
-                g.y += g.vy;
-                g.vx *= 0.92; // 毎フレーム 8% 減速
-                g.vy *= 0.92;
-            }
-        }
-
-        if (dist < CONFIG.GEM_COLLECT_RADIUS) {
-            if (g.kind === 'HEAL') {
-                playerStats.hp = Math.min(playerStats.maxHp, playerStats.hp + (g.heal || CONFIG.HEAL_ITEM_AMOUNT));
-            } else {
-                playerStats.exp += g.exp;
-                checkLevelUp();
-            }
-            entities.gems.splice(i, 1);
-        }
-    }
+    CollisionManager.handleGemPickup(entities, player, playerStats, checkLevelUp);
 
     // --- ミッション達成リマインダー ---
     if (GAME.killCount >= CONFIG.MISSION_QUOTA && !GAME.isMissionClear && !GAME.isPlayerDying) {
