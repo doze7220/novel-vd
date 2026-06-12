@@ -1,4 +1,4 @@
-# VANGUARDRIFTER - STELLA WAR SURVIVOR -
+# VANGAURDRIFTER - STELLA WAR SUVIVOR -
 
 「慣性」x「艦制」ｘ「第六感」！
 “軌跡”を予測し、“未来”を描け！
