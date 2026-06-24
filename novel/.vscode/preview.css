@@ -1,0 +1,39 @@
+/* kakuyomu-style.css */
+body {
+    /* 背景色と文字色：カクヨムの執筆画面に近い色 */
+    background-color: #fafafa !important;
+    color: #333333 !important;
+
+    /* 明朝体：読みやすさを重視 */
+    font-family: "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "MS PMincho", serif;
+
+    /* 1行の長さと余白を調整（画面いっぱいに広がらないようにする） */
+    max-width: 510px;
+    margin: 0 auto !important;
+    padding: 60px 40px !important;
+
+    line-height: 1.8;
+    font-size: 13px;
+}
+
+/* 段落の字下げ：カクヨム（小説）の基本 */
+p {
+    margin: 0 0 1.5em 0;
+    text-indent: 1em;
+}
+
+/* 見出し：シンプルに */
+h1,
+h2,
+h3 {
+    border-bottom: 1px solid #ddd !important;
+    padding-bottom: 0.3em;
+    margin-top: 2em;
+    color: #111;
+}
+
+/* リンク：カクヨムのブルーに寄せる */
+a {
+    color: #258fb8;
+    text-decoration: none;
+}
