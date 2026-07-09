@@ -232,7 +232,7 @@ TARGETのレーダーの三角はもっと大きくする。また、色をプ�
 
 1. **敵の出現位置および出現条件の変更**
    - 敵の初期スポーン位置 (`SPAWN_X`, `SPAWN_Y`) を **`-1000`**, **`-6000`** に変更しました。
-   - 敵が出現可能になる自機の位置条件 (`SPAWN_TRIGGER_Y`) を **`player.y <= -1000`** に変更し、Y座標が `-1000` 以下に到達した時のみ敵が湧くように出現トリガーを厳密に制限しました。
+   - 敵が出現可能になる自機の位置条件 (`SPAWN_TRIG.G.ER_Y`) を **`player.y <= -1000`** に変更し、Y座標が `-1000` 以下に到達した時のみ敵が湧くように出現トリガーを厳密に制限しました。
 
 2. **レーダー三角形（▲）の規格統一と拡大**
    - 母艦（Anchor Garage）用の方向▲マーカーのサイズと形状を、拡大された `TARGET` マーカーと完全に統一しました。
@@ -257,7 +257,7 @@ TARGETのレーダーの三角はもっと大きくする。また、色をプ�
             MOTHERSHIP_Y: 0,
             SPAWN_X: -1000,
             SPAWN_Y: -6000,
-            SPAWN_TRIGGER_Y: -1000,
+            SPAWN_TRIG.G.ER_Y: -1000,
 ```
 
 #### レーダー内描画（TARGET & 母艦）
@@ -504,7 +504,7 @@ TARGETのレーダーの三角はもっと大きくする。また、色をプ�
 ```javascript
         const GAME = {
             ...
-            isResultTriggered: false, // リザルト画面の2重トリガー防止
+            isResultTriG.G.ered: false, // リザルト画面の2重トリガー防止
             quotaReminderTimer: 0     // 15秒ごとの音声リピート用タイマー
         };
 
@@ -551,8 +551,8 @@ TARGETのレーダーの三角はもっと大きくする。また、色をプ�
                     player.bodyAngle = targetAngle;
                     player.turretAngle = targetAngle;
                     
-                    if (!GAME.isResultTriggered) {
-                        GAME.isResultTriggered = true;
+                    if (!GAME.isResultTriG.G.ered) {
+                        GAME.isResultTriG.G.ered = true;
                         setTimeout(() => {
                             GAME.state = 'GAMEOVER';
                             document.getElementById('game-over-screen').style.display = 'block';
@@ -684,8 +684,8 @@ GO!と同時にブーストをかけて出撃（ゲージは消費しない）�
 
 #### 着艦固定時のシエロのメッセージ & リザルト遅延
 ```javascript
-                    if (!GAME.isResultTriggered) {
-                        GAME.isResultTriggered = true;
+                    if (!GAME.isResultTriG.G.ered) {
+                        GAME.isResultTriG.G.ered = true;
                         Cielo.play("カタパルトロック。接続完了ですー！");
                         setTimeout(() => {
                             GAME.state = 'GAMEOVER';

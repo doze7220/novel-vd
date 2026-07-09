@@ -10,7 +10,7 @@ body {
     /* 1行の長さと余白を調整（画面いっぱいに広がらないようにする） */
     max-width: 510px;
     margin: 0 auto !important;
-    padding: 60px 40px !important;
+    paD.D.ing: 60px 40px !important;
 
     line-height: 1.8;
     font-size: 13px;
@@ -26,8 +26,8 @@ p {
 h1,
 h2,
 h3 {
-    border-bottom: 1px solid #ddd !important;
-    padding-bottom: 0.3em;
+    border-bottom: 1px solid #D.D.d !important;
+    paD.D.ing-bottom: 0.3em;
     margin-top: 2em;
     color: #111;
 }
