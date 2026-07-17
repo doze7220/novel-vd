@@ -27,14 +27,15 @@
 * 第18話「ワールド・インタビュー《I ask you》」
 * 第19話「52%《Critical breakthrough》」
 * 第20話「愛しい船よ、もう一度《Dear ship, once again》」
+* 第21話「悲しみはソラに捨てて《High sing echoes through the cosmos》」
 ### 第四幕「流浪者たちの凱歌」
-* 第21話「ミッション『勇者募集』《Wanted: Braves》」
-* 第22話「タイトロープ《Tightrope》」
-* 第23話「狂乱の騎士《Lunatic Knight》」
-* 第24話「デイモス・トロパイオン《Deimos Kenotaphion》」
-* 第25話「モノクローム《Monochrome》」
-* 第26話「流浪者たちの凱歌《Triumph of Vanguardrifters》」
-* 第27話「アフター・グロウ・ウィング《Afterglow wings》」
+* 第22話「ミッション『勇者募集』《Wanted: Braves》」
+* 第23話「タイトロープ《Tightrope》」
+* 第24話「狂乱の騎士《Lunatic Knight》」
+* 第25話「デイモス・トロパイオン《Deimos Kenotaphion》」
+* 第26話「モノクローム《Monochrome》」
+* 第27話「流浪者たちの凱歌《Triumph of Vanguardrifters》」
+* 第28話「アフター・グロウ・ウィング《Afterglow wings》」
 
 ## 全話ロードマップ
 ### 第一幕
