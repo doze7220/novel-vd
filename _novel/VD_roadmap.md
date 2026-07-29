@@ -1,4 +1,4 @@
-# VANGUARDRIFTER：タイトル一覧・ロードマップ
+#  VANGUARDDRIFTER：タイトル一覧・ロードマップ
 
 ## タイトル一覧
 幕題、話題は掲載時には未使用。
@@ -34,7 +34,7 @@
 * 第24話「狂乱の騎士《Lunatic Knight》」
 * 第25話「デイモス・トロパイオン《Deimos Kenotaphion》」
 * 第26話「モノクローム《Monochrome》」
-* 第27話「流浪者たちの凱歌《Triumph of Vanguardrifters》」
+* 第27話「流浪者たちの凱歌《Triumph of  VANGUARDDRIFTERs》」
 ### 終幕
 * 第28話「アフター・グロウ・ウィング《Afterglow wings》」
 

@@ -1,4 +1,4 @@
-# VANGUARDRIFTER：PO2一覧
+#  VANGUARDDRIFTER：PO2一覧
 
 ## 区分
 居住班：キュート
