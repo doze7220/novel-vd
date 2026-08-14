@@ -1,0 +1,4 @@
+# Google Drive temporary files
+.tmp.driveupload
+*.tmp.driveupload
+*.driveupload
